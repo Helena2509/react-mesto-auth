@@ -1,0 +1,31 @@
+.form__submit-button_type_profile_disabled {
+  position: absolute;
+  bottom: -116px;
+  left: 0px;
+  background-color: white;
+  width: 358px;
+  height: 50px;
+  color: black;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  opacity: 0.2;
+  border: 1px solid #000000;
+  outline: none;
+  cursor: default;
+}
+
+.form__submit-button_type_profile_disabled:hover {
+  opacity: 0.2;
+}
+
+@media screen and (max-width : 700px) {
+  .form__submit-button_type_profile_disabled  {
+    width: 200px;
+    bottom: 30px;
+    left: 20px;
+  }
+}

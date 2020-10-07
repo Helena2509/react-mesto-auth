@@ -1,0 +1,16 @@
+.form__set {
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: 84px;
+  height: 100px;
+  width: 358px;
+  left: 36px;
+}
+
+@media screen and (max-width: 700px) {
+  .form__set {
+    left: 20px;
+  }
+}

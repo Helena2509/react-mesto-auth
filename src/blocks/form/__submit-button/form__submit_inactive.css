@@ -1,0 +1,29 @@
+.form__submit_inactive {
+  position: absolute;
+  bottom: -116px;
+  left: 0px;
+  background-color: white;
+  width: 358px;
+  height: 50px;
+  color: rgb(186, 186, 186);
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  border: 1px solid rgb(186, 186, 186);
+  outline: none;
+  cursor: default;
+}
+
+.form__submit_inactive:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width : 700px) {
+  .form__submit_inactive  {
+    width: 200px;
+    bottom: -52px;
+  }
+}

@@ -1,0 +1,16 @@
+
+@import url(./__logo/header__logo.css);
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #545454;
+  margin: 0 199px 37px;
+}
+
+@media screen and (max-width : 769px) {
+  .header {
+    margin: 0 0 17px;
+  }
+}
