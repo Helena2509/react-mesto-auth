@@ -1,6 +1,5 @@
 import React from 'react';
 import editButton from '../images/editbutton.svg';
-import api from '../utils/utils.js';
 import Card from './Card.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 

@@ -34,7 +34,8 @@ function App() {
           });
           history.push('/');
         }
-      });
+      })
+      .catch((err) => console.log(err));
     }
   };
 
@@ -53,31 +54,37 @@ function App() {
         setCurrentUser(user);
         setCards(cards);
       }
-    );
+    )
+    .catch((err) => console.log(err));
     tokenCheck();
   }, []);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     if (!isLiked) {
-      api.setLike(card._id).then((newCard) => {
+      api.setLike(card._id)
+      .then((newCard) => {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         setCards(newCards);
-      });
+      })
+      .catch((err) => console.log(err));
     } else {
-      api.deleteLike(card._id).then((newCard) => {
+      api.deleteLike(card._id).
+      then((newCard) => {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         setCards(newCards);
-      });
+      })
+      .catch((err) => console.log(err));
     }
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then((newCard) => {
+    api.deleteCard(card._id)
+    .then((newCard) => {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
-    });
+    })
+    .catch((err) => console.log(err));
   }
   
   function handleInfoTooltip() {
@@ -113,24 +120,30 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState();
 
   function handleUpdateUser(name, desc) {
-    api.editUserInfo(name, desc).then((res) => {
+    api.editUserInfo(name, desc)
+    .then((res) => {
       setCurrentUser(res);
       closeAllPopups();
-    });
+    })
+    .catch((err) => console.log(err));
   }
 
   function handleAddPlaceSubmit(title, link) {
-    api.addCard(title, link).then((newCard) => {
+    api.addCard(title, link)
+    .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
-    });
+    })
+    .catch((err) => console.log(err));
   }
 
   function handleUpdateAvatar(avatar) {
-    api.editAvatarInfo(avatar).then((res) => {
+    api.editAvatarInfo(avatar)
+    .then((res) => {
       setCurrentUser(res);
       closeAllPopups();
-    });
+    })
+    .catch((err) => console.log(err));
   }
 
   function handleDeleteClick() {

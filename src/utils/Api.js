@@ -9,12 +9,11 @@ export default class Api {
       headers: this._headers,
     })
       .then((res) => {
-        if (res.ok) {
+        if (!res.ok) {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        } else {
           return res.json();
         }
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }
 
@@ -26,10 +25,13 @@ export default class Api {
         name: name,
         link: link,
       }),
-    }).then((res) => {
-      if (res.ok) return res.json();
-    }).catch((err) => {
-      console.log(err);
+    })
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
     });
   }
 
@@ -37,14 +39,13 @@ export default class Api {
     return fetch(this._baseURL + '/users/me', {
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
+    });
   }
 
   editUserInfo(name, desc) {
@@ -55,10 +56,13 @@ export default class Api {
         name: name,
         about: desc,
       }),
-    }).then((res) => {
-      if (res.ok) return res.json();
-    }).catch((err) => {
-      console.log(err);
+    })
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
     });
   }
 
@@ -69,11 +73,13 @@ export default class Api {
       body: JSON.stringify({
         avatar: avalink,
       }),
-    }).then((res) => {
-      if (res.ok) return res.json();
     })
-    .catch((err) => {
-      console.log(err);
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
     });
   }
 
@@ -82,12 +88,13 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
+    });
   }
 
   deleteLike(id) {
@@ -95,12 +102,13 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
+    });
   }
 
   deleteCard(id) {
@@ -108,13 +116,12 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      } else {
+        return res.json();
+      }
+    });
   }
 }
-
-

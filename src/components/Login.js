@@ -37,7 +37,10 @@ const Login = (props) => {
           resetForm();
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        props.handleInfoTooltip();
+        props.handleInfoTooltipFail(true);
+        console.log(err)});
   };
 
   return (
@@ -50,6 +53,7 @@ const Login = (props) => {
             className="form__login_input"
             placeholder="Email"
             required
+            minLength="5"
             id="email"
             name="email"
             value={email}
@@ -63,6 +67,7 @@ const Login = (props) => {
             placeholder="Пароль"
             id="password"
             name="password"
+            minLength="5"
             value={password}
             onChange={(evt) => setPassword(evt.target.value)}
             required

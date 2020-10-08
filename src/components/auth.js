@@ -9,12 +9,17 @@ export const register = (password, email) => {
     body: JSON.stringify({ password, email })
   })
   .then((res) => {
-    return res.json();
+    if (res.status === 400) {
+      return Promise.reject(`Hекорректно заполнено одно из полей`);
+    } if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    } else {
+      return res.json();
+    }
   })
   .then((res) => {
     return res;
   })
-  .catch((err) => console.log(err));
 };
 
 export const authorize = (password, email) => {
@@ -26,12 +31,21 @@ export const authorize = (password, email) => {
     },
     body: JSON.stringify({ password, email })
   })
-    .then((response => response.json()))
+  .then((res) => {
+    if (res.status === 400) {
+      return Promise.reject(`Hе передано одно из полей`);
+    } if (res.status === 401) {
+      return Promise.reject(`Пользователь с email не найден`);
+    } if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    } else {
+      return res.json();
+    }
+  })
     .then((data) => {
       localStorage.setItem('jwt', data.token);
       return data;
     })
-  .catch(err => console.log(err))
 };
 export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
@@ -42,6 +56,16 @@ export const checkToken = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-  .then(res => res.json())
+  .then((res) => {
+    if (res.status === 400) {
+      return Promise.reject(`Токен не передан или передан не в том формате`);
+    } if (res.status === 401) {
+      return Promise.reject(`Переданный токен некорректен `);
+    } if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    } else {
+      return res.json();
+    }
+  })
   .then(data => data)
 }

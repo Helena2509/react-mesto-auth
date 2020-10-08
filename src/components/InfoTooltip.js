@@ -9,7 +9,7 @@ function InfoTooltip(props) {
     <>
     <div className={`popup__login ${props.infoTooltipIsOpen ? "popup_opened" : ""}`}>
     <div className="popup__login_container">
-      <img className="popup__login_img" src={props.infoTooltipFail ? fail : successfull}></img>
+      <img className="popup__login_img" src={props.infoTooltipFail ? fail : successfull} alt="Изображение результата"></img>
       <h2 className="popup__login_heading">
         {props.infoTooltipFail ? 'Что-то пошло не так! Попробуйте еще раз.' : 'Вы успешно зарегестрировались!'}
       </h2>

@@ -38,8 +38,13 @@ const Register = (props) => {
         setTimeout(logIn, 600);
       }
     })
-    .then(() => resetForm());
-  };
+    .then(() => resetForm())
+    .catch((err) => {
+      props.handleInfoTooltip();
+      props.handleInfoTooltipFail(true);
+      console.log(err)});
+};
+
 
   return (
       <section className="login">
@@ -63,6 +68,7 @@ const Register = (props) => {
               className="form__login_input"
               placeholder="Пароль"
               required
+              minLength="5"
               value={password}
               onChange={(evt) => setPassword(evt.target.value)}
             />
