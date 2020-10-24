@@ -1,12 +1,14 @@
 export default class Api {
   constructor(options) {
     this._baseURL = options.baseUrl;
-    this._headers = options.headers;
   }
 
-  getInitialCards() {
+  getInitialCards(token) {
     return fetch(this._baseURL + '/cards', {
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     })
       .then((res) => {
         if (!res.ok) {
@@ -17,10 +19,13 @@ export default class Api {
       });
   }
 
-  addCard(name, link) {
+  addCard(name, link, token) {
     return fetch(this._baseURL + '/cards', {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         link: link,
@@ -32,26 +37,41 @@ export default class Api {
       } else {
         return res.json();
       }
-    });
-  }
+    })
+    .then((data) => {
+      return data})
+  };
+  
 
-  getUserInfo() {
+  getUserInfo(token) {
     return fetch(this._baseURL + '/users/me', {
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then((res) => {
-      if (!res.ok) {
+      if (res.status === 400) {
+        return Promise.reject(`Токен не передан или передан не в том формате`);
+      } if (res.status === 401) {
+        return Promise.reject(`Переданный токен некорректен `);
+      } if (!res.ok) {
         return Promise.reject(`Ошибка: ${res.status}`);
       } else {
         return res.json();
       }
-    });
+    })
+    .then((data) => {
+      return data})
   }
 
-  editUserInfo(name, desc) {
+  editUserInfo(name, desc, token) {
     return fetch(this._baseURL + '/users/me', {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         about: desc,
@@ -63,13 +83,18 @@ export default class Api {
       } else {
         return res.json();
       }
-    });
-  }
+    })
+    .then((data) => {
+      return data})
+  };
 
-  editAvatarInfo(avalink) {
+  editAvatarInfo(avalink, token) {
     return fetch(this._baseURL + '/users/me/avatar', {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar: avalink,
       }),
@@ -80,13 +105,18 @@ export default class Api {
       } else {
         return res.json();
       }
-    });
-  }
+    })    
+    .then((data) => {
+      return data})
+  };
 
-  setLike(id) {
+  setLike(id, token) {
     return fetch(this._baseURL + '/cards/likes/' + id, {
       method: 'PUT',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then((res) => {
       if (!res.ok) {
@@ -97,10 +127,13 @@ export default class Api {
     });
   }
 
-  deleteLike(id) {
+  deleteLike(id, token) {
     return fetch(this._baseURL + '/cards/likes/' + id, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then((res) => {
       if (!res.ok) {
@@ -111,10 +144,13 @@ export default class Api {
     });
   }
 
-  deleteCard(id) {
+  deleteCard(id, token) {
     return fetch(this._baseURL + '/cards/' + id, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     })
     .then((res) => {
       if (!res.ok) {

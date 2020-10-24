@@ -5,7 +5,6 @@
   margin-right: 41px;
   margin-bottom: 47px;
   opacity: 1;
-
 }
 
 .profile__image:hover {
@@ -14,11 +13,33 @@
   transition: all 0.3s ease;
 }
 
-.profile__image .profile__image:hover {
-  display: flex;
-  animation: fadeIn 3s;
+.profile__image-back {
+  width: 26px;
+  height: 26px;
 }
 
+.profile__back {
+  visibility: hidden;
+  position: absolute;
+  top: 51px;
+  left: 49px;
+  width: 26px;
+  height: 26px;
+  z-index: -1;
+}
+
+.profile__container {
+  position: relative;
+}
+
+.profile__image:hover + .profile__back{
+  visibility: visible;
+}
+
+.profile__image .profile__image:hover {
+  visibility: visible;
+  animation: fadeIn 3s;
+}
 
 @media screen and (max-width : 1080px) {
   .profile__image {
@@ -29,21 +50,3 @@
     margin: 0 auto;
   }
 }
-
-.profile__image-back {
-  display: none;
-  position: absolute;
-    top: 51px;
-    left: 49px;
-    width: 26px;
-    height: 26px;
-}
-
-.profile__container {
-  position: relative;
-}
-
-.profile__image:hover + .profile__image-back {
-  display: block
-}
-

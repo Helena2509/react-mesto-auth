@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://api.kea.students.nomoreparties.space';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -51,11 +51,9 @@ export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
-      'Accept': 'application/json',
+      'authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    }
-  })
+    }})
   .then((res) => {
     if (res.status === 400) {
       return Promise.reject(`Токен не передан или передан не в том формате`);
@@ -67,5 +65,6 @@ export const checkToken = (token) => {
       return res.json();
     }
   })
-  .then(data => data)
+  .then((data) => {
+    return data})
 }

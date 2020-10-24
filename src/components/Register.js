@@ -35,7 +35,7 @@ const Register = (props) => {
         props.handleInfoTooltip();
         props.handleInfoTooltipFail(true);
       } else {
-        setTimeout(logIn, 600);
+        setTimeout(logIn, 800);
       }
     })
     .then(() => resetForm())

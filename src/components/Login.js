@@ -31,7 +31,6 @@ const Login = (props) => {
           props.handleInfoTooltip();
           props.handleInfoTooltipFail(true);
         } else {
-          console.log(data);
           props.tokenCheck();
           history.push('/');
           resetForm();

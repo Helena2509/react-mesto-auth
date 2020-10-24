@@ -17,17 +17,25 @@ import * as auth from './auth.js';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState(null);
+  const [userData, setUserData] = useState({});
 
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userData, setUserData] = useState({});
+  const [cards, setCards] = React.useState([]);
 
   const history = useHistory();
 
   const tokenCheck = () => {
-    let jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth.checkToken(jwt).then((res) => {
         if (res) {
+          Promise.all([api.getUserInfo(jwt), api.getInitialCards(jwt)]).then(
+            ([user, cards]) => {
+              setCurrentUser(user.data);
+              setCards(cards);
+            }
+          )
+          .catch((err) => {return console.log(err)});
           setLoggedIn(true);
           setUserData({
             email: res.data.email,
@@ -46,32 +54,24 @@ function App() {
     });
   };
 
-  const [cards, setCards] = React.useState([]);
-
   React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
-      ([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      }
-    )
-    .catch((err) => console.log(err));
     tokenCheck();
   }, []);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const jwt = localStorage.getItem('jwt');
     if (!isLiked) {
-      api.setLike(card._id)
+      api.setLike(card._id, jwt)
       .then((newCard) => {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        const newCards = cards.map((c) => (c._id === card._id ? newCard.data : c));
         setCards(newCards);
       })
       .catch((err) => console.log(err));
     } else {
-      api.deleteLike(card._id).
+      api.deleteLike(card._id, jwt).
       then((newCard) => {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        const newCards = cards.map((c) => (c._id === card._id ? newCard.data : c));
         setCards(newCards);
       })
       .catch((err) => console.log(err));
@@ -79,7 +79,8 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
+    const jwt = localStorage.getItem('jwt');
+    api.deleteCard(card._id, jwt)
     .then((newCard) => {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
@@ -120,7 +121,8 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState();
 
   function handleUpdateUser(name, desc) {
-    api.editUserInfo(name, desc)
+    const jwt = localStorage.getItem('jwt');
+    api.editUserInfo(name, desc, jwt)
     .then((res) => {
       setCurrentUser(res);
       closeAllPopups();
@@ -129,16 +131,18 @@ function App() {
   }
 
   function handleAddPlaceSubmit(title, link) {
-    api.addCard(title, link)
+    const jwt = localStorage.getItem('jwt');
+    api.addCard(title, link, jwt)
     .then((newCard) => {
-      setCards([newCard, ...cards]);
+      setCards([newCard.data, ...cards]);
       closeAllPopups();
     })
     .catch((err) => console.log(err));
   }
 
   function handleUpdateAvatar(avatar) {
-    api.editAvatarInfo(avatar)
+    const jwt = localStorage.getItem('jwt');
+    api.editAvatarInfo(avatar, jwt)
     .then((res) => {
       setCurrentUser(res);
       closeAllPopups();

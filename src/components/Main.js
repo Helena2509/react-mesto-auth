@@ -16,7 +16,9 @@ function Main(props) {
             onClick={props.onEditAvatar}
             src={currentUser ? currentUser.avatar : ""}
           />
-          <img className="profile__image-back" src={editButton} />
+          <div className="profile__back">
+            <img className="profile__image-back" src={editButton} />
+          </div>
         </div>
         <div className="profile__streamer">
           <div className="profile__info">
