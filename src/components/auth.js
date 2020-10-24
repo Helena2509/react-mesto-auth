@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.kea.students.nomoreparties.space';
+export const BASE_URL = 'https://www.api.kea.students.nomoreparties.space';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
