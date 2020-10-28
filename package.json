@@ -18,7 +18,7 @@
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ser": "scp -r ./build/* helena@84.201.138.234:/home/helena/frontend" 
+    "ser": "scp -r ./build/* helenat@130.193.40.29:/home/helenat/frontend" 
   },
   "eslintConfig": {
     "extends": "react-app"

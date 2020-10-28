@@ -77,7 +77,7 @@ const Login = (props) => {
       <p className="login__sub">
         Ещё не зарегестрированны?{' '}
         <Link to="/signup" className="login__sub_link">
-          Регестрация
+          Регистрация
         </Link>
       </p>
     </section>

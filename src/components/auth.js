@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://www.api.kea.students.nomoreparties.space';
+export const BASE_URL = 'https://api.keal.students.nomoreparties.xyz';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -52,7 +52,7 @@ export const checkToken = (token) => {
     method: 'GET',
     headers: {
       'authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }})
   .then((res) => {
     if (res.status === 400) {

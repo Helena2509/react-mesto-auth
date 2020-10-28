@@ -111,7 +111,7 @@ export default class Api {
   };
 
   setLike(id, token) {
-    return fetch(this._baseURL + '/cards/likes/' + id, {
+    return fetch(this._baseURL + '/cards/' + id + '/likes', {
       method: 'PUT',
       headers: {
         'authorization': `Bearer ${token}`,
@@ -128,7 +128,7 @@ export default class Api {
   }
 
   deleteLike(id, token) {
-    return fetch(this._baseURL + '/cards/likes/' + id, {
+    return fetch(this._baseURL + '/cards/' + id + '/likes', {
       method: 'DELETE',
       headers: {
         'authorization': `Bearer ${token}`,

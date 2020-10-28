@@ -1,7 +1,7 @@
 import Api from './Api.js'
 
 const api = new Api({
-  baseUrl: 'https://www.api.kea.students.nomoreparties.space'
+  baseUrl: 'https://api.keal.students.nomoreparties.xyz'
 });
 
 export default api;
